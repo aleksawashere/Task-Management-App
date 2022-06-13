@@ -111,27 +111,26 @@ struct Home: View {
         }
         .padding()
         .padding(.top)
-        //MARK: Updating
-        .onChange(of: taskModel.currentDay) { newValue in
-            taskModel.filterTodaysTasks()
-        }
+        
         
     }
     
     
     //MARK: Task Card View
     func TaskCardView(task: Task)->some View{
+        
+        //MARK: Since CoreData Values will give optional data
         HStack(alignment: .top, spacing:15){
             VStack(spacing:10){
                 Circle()
-                    .fill(taskModel.isCurrentHour(date: task.taskDate) ? Color("OrangeTick") : .clear)
+                    .fill(taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? Color("OrangeTick") : .clear)
                     .frame(width: 15, height: 15)
                     .background(
                     Circle()
                         .stroke(Color("OrangeTick"),lineWidth: 1)
                         .padding(-3)
                     )
-                    .scaleEffect(taskModel.isCurrentHour(date: task.taskDate) ? 1 : 0.8)
+                    .scaleEffect(taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? 1 : 0.8)
                 
                 Rectangle()
                     .fill(.gray)
@@ -143,21 +142,21 @@ struct Home: View {
                     
                     VStack(alignment: .leading, spacing: 12){
                         
-                        Text(task.taskTitle)
+                        Text(task.taskTitle ?? "")
                             .font(.title2.bold())
                             
-                        Text(task.taskDescription)
+                        Text(task.taskDescription ?? "")
                             .font(.callout)
                             
                     }
                     .hLeading()
                     
-                    Text(task.taskDate.formatted(date:.omitted, time:.shortened))
+                    Text(task.taskDate?.formatted(date:.omitted, time:.shortened) ?? "")
                     
                                         
                 }
                 
-                if taskModel.isCurrentHour(date: task.taskDate){
+                if taskModel.isCurrentHour(date: task.taskDate ?? Date()){
                     //MARK: Team Members
                     HStack(spacing:0){
                         HStack(spacing:-10){
@@ -194,14 +193,14 @@ struct Home: View {
 
                 
             }
-            .foregroundColor(taskModel.isCurrentHour(date: task.taskDate) ? .white : .black)
-            .padding(taskModel.isCurrentHour(date: task.taskDate) ? 20 : 5)
+            .foregroundColor(taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? .white : .black)
+            .padding(taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? 20 : 5)
             .hLeading()
-            .padding(.bottom, taskModel.isCurrentHour(date: task.taskDate) ? 0 : 1)
+            .padding(.bottom, taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? 0 : 1)
             .background(
                 Color("OrangeTick")
                     .cornerRadius(25)
-                    .opacity(taskModel.isCurrentHour(date: task.taskDate) ? 1 : 0)
+                    .opacity(taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? 1 : 0)
             
             )
         }

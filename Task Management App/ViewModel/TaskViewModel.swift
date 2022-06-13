@@ -10,15 +10,7 @@ import SwiftUI
 class TaskViewModel: ObservableObject{
     
     
-    @Published var storedTasks: [Task] = [
     
-        Task(taskTitle: "Zavrsi projekat", taskDescription: "Sredi dizajn i funkcionalnosti na samom projektu", taskDate: .init(timeIntervalSince1970: 1655155826)),
-        Task(taskTitle: "Nauci osnove kvaliteta za ispit", taskDescription: "Vidi gradivo koje je potrebno da spremis", taskDate: .init(timeIntervalSince1970: 1655144826)),
-        Task(taskTitle: "Pregledaj dizajn aplikacije", taskDescription: "Dodatno prepravi ako se nesto ne uklapa", taskDate: .init(timeIntervalSince1970: 1655200911)),
-        Task(taskTitle: "Prijavi temu diplomskog rada", taskDescription: "U studentskoj sluzbi prijavi i sacekaj proceduru", taskDate: .init(timeIntervalSince1970: 1655200911)),
-        Task(taskTitle: "Zavrsi igricu u Unity okruzenju", taskDescription: "Dodaj funkcionalnosti za glavnog junaka", taskDate: .init(timeIntervalSince1970: 1655200911)),
-        Task(taskTitle: "Trening", taskDescription: "Ruke i ramena", taskDate: .init(timeIntervalSince1970: 1655200911))
-    ]
     
     //MARK: Current Week Days
     
@@ -35,30 +27,9 @@ class TaskViewModel: ObservableObject{
     //MARK: Initializing
     init(){
         fetchCurrentWeek()
-        filterTodaysTasks()
     }
     
-    //MARK: Filter Todays Tasks
-    
-    func filterTodaysTasks(){
-        DispatchQueue.global(qos: .userInteractive).async {
-            
-            let calendar = Calendar.current
-            
-            let filtered = self.storedTasks.filter{
-                return calendar.isDate($0.taskDate, inSameDayAs: self.currentDay)
-            }
-                .sorted{ task1, task2 in
-                    return task2.taskDate > task1.taskDate
-                }
-            
-            DispatchQueue.main.async {
-                withAnimation{
-                    self.filteredTasks = filtered
-                }
-            }
-        }
-    }
+   
     
     func fetchCurrentWeek(){
         let today = Date()
