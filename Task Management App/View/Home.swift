@@ -10,6 +10,11 @@ import SwiftUI
 struct Home: View {
     @StateObject var taskModel: TaskViewModel = TaskViewModel()
     @Namespace var animation
+    
+    //MARK: Core Data Context
+    @Environment(\.managedObjectContext) var context
+    
+    
     var body: some View {
         ScrollView(.vertical, showsIndicators: false){
 
@@ -128,11 +133,11 @@ struct Home: View {
         HStack(alignment: .top, spacing:15){
             VStack(spacing:10){
                 Circle()
-                    .fill(taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? Color("OrangeTick") : .clear)
+                    .fill(taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? (task.isCompleted ? Color("GreenTick") : Color("OrangeTick")) : .clear)
                     .frame(width: 15, height: 15)
                     .background(
                     Circle()
-                        .stroke(Color("OrangeTick"),lineWidth: 1)
+                        .stroke((task.isCompleted ? Color("GreenTick") : Color("OrangeTick")),lineWidth: 1)
                         .padding(-3)
                     )
                     .scaleEffect(taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? 1 : 0.8)
@@ -163,34 +168,30 @@ struct Home: View {
                 
                 if taskModel.isCurrentHour(date: task.taskDate ?? Date()){
                     //MARK: Team Members
-                    HStack(spacing:0){
-                        HStack(spacing:-10){
-                            ForEach(["User1","User2","User3"], id:\.self){ user in
-                                
-                                Image(user)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width:45, height: 45)
-                                    .clipShape(Circle())
-                                    .background(
-                                    
-                                        Circle()
-                                            .stroke(.white, lineWidth: 2)
-                                    
-                                    )
-                            }
-                        }
-                        .hLeading()
+                    HStack(spacing:12){
+                        
                         
                         //MARK: Check Button
-                        Button{
-                            
-                        } label:{
-                            Image(systemName: "checkmark")
-                                .foregroundStyle(.green)
-                                .padding(10)
-                                .background(.white, in:RoundedRectangle(cornerRadius: 10))
+                        if !task.isCompleted{
+                            Button{
+                                //Azuriranje statusa izvrsenosti zadatja
+                                task.isCompleted = true
+                                
+                                //Cuvanje
+                                try? context.save()
+                                
+                            } label:{
+                                Image(systemName: "checkmark")
+                                    .foregroundStyle(.green)
+                                    .padding(10)
+                                    .background(.white, in:RoundedRectangle(cornerRadius: 10))
+                            }
                         }
+                        
+                        Text(task.isCompleted ? "Completed" : "Mark Task as Completed")
+                            .font(.system(size: task.isCompleted ? 14 : 16, weight: .light))
+                            .foregroundColor(.white)
+                            .hLeading()
                         
                     }
                     .padding(.top)
@@ -239,6 +240,8 @@ struct Home: View {
                     .frame(width: 45, height: 45)
                     .clipShape(Circle())
             }
+            
+            
             
         }
         .padding()
