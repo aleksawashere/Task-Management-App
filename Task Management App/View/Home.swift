@@ -82,31 +82,36 @@ struct Home: View {
             }
         }
         .ignoresSafeArea(.container, edges: .top)
+        
+        //MARK: Add Button
+        .overlay(
+            Button(action: {
+                taskModel.addNewTask.toggle()
+            }, label: {
+                Image(systemName: "plus")
+                    .foregroundColor(.white)
+                    
+                    .padding()
+                    .background(Color("OrangeTick"), in: Circle())
+            })
+            .padding()
+            .padding()
+            .font(.system(size:30))
 
+            ,alignment: .bottomTrailing
+        )
+        .sheet(isPresented: $taskModel.addNewTask){
+            NewTask()
+        }
     }
     
     //MARK: Tasks View
     func TasksView()->some View{
         LazyVStack(spacing:30){
-            if let tasks = taskModel.filteredTasks{
-                if tasks.isEmpty{
-                    Text("Uživaj u ostatku dana!☀️")
-                        .font(.system(size:16))
-                        .fontWeight(.light)
-                    Text("Nema više zadataka za tebe danas!🎉")
-                        .font(.system(size:16))
-                        .fontWeight(.light)
-                }
-                else{
-                    ForEach(tasks){ task in
-                        TaskCardView(task: task)
-                    }
-                }
-            }
-            else{
-                //MARK: Progress View
-                ProgressView()
-                    .offset(y: 100)
+            
+            //Converting object as Our Task Model
+            DynamicFilterView(dateToFilter: taskModel.currentDay){ (object: Task) in
+                TaskCardView(task: object)
             }
         }
         .padding()

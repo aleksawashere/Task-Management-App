@@ -18,6 +18,8 @@
 		6F4B67DA285779B1006C98EA /* Task_Management_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4B67D9285779B1006C98EA /* Task_Management_AppUITestsLaunchTests.swift */; };
 		6F4B67EC28577C6A006C98EA /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4B67EB28577C6A006C98EA /* TaskViewModel.swift */; };
 		6F4B67EE28577D99006C98EA /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4B67ED28577D99006C98EA /* Home.swift */; };
+		6F4B67F02857F459006C98EA /* DynamicFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4B67EF2857F459006C98EA /* DynamicFilterView.swift */; };
+		6F4B67F22857F881006C98EA /* NewTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4B67F12857F881006C98EA /* NewTask.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +54,8 @@
 		6F4B67D9285779B1006C98EA /* Task_Management_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task_Management_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		6F4B67EB28577C6A006C98EA /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		6F4B67ED28577D99006C98EA /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		6F4B67EF2857F459006C98EA /* DynamicFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicFilterView.swift; sourceTree = "<group>"; };
+		6F4B67F12857F881006C98EA /* NewTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +147,8 @@
 			isa = PBXGroup;
 			children = (
 				6F4B67ED28577D99006C98EA /* Home.swift */,
+				6F4B67EF2857F459006C98EA /* DynamicFilterView.swift */,
+				6F4B67F12857F881006C98EA /* NewTask.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -290,7 +296,9 @@
 				6F4B67BA285779B0006C98EA /* ContentView.swift in Sources */,
 				6F4B67C4285779B1006C98EA /* Task_Management_App.xcdatamodeld in Sources */,
 				6F4B67B8285779B0006C98EA /* Task_Management_AppApp.swift in Sources */,
+				6F4B67F22857F881006C98EA /* NewTask.swift in Sources */,
 				6F4B67EE28577D99006C98EA /* Home.swift in Sources */,
+				6F4B67F02857F459006C98EA /* DynamicFilterView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
