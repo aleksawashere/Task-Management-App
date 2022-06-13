@@ -16,6 +16,9 @@
 		6F4B67CE285779B1006C98EA /* Task_Management_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4B67CD285779B1006C98EA /* Task_Management_AppTests.swift */; };
 		6F4B67D8285779B1006C98EA /* Task_Management_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4B67D7285779B1006C98EA /* Task_Management_AppUITests.swift */; };
 		6F4B67DA285779B1006C98EA /* Task_Management_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4B67D9285779B1006C98EA /* Task_Management_AppUITestsLaunchTests.swift */; };
+		6F4B67E928577C04006C98EA /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4B67E828577C04006C98EA /* Task.swift */; };
+		6F4B67EC28577C6A006C98EA /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4B67EB28577C6A006C98EA /* TaskViewModel.swift */; };
+		6F4B67EE28577D99006C98EA /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4B67ED28577D99006C98EA /* Home.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,9 @@
 		6F4B67D3285779B1006C98EA /* Task Management AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Task Management AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F4B67D7285779B1006C98EA /* Task_Management_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task_Management_AppUITests.swift; sourceTree = "<group>"; };
 		6F4B67D9285779B1006C98EA /* Task_Management_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task_Management_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		6F4B67E828577C04006C98EA /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		6F4B67EB28577C6A006C98EA /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
+		6F4B67ED28577D99006C98EA /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +104,9 @@
 		6F4B67B6285779B0006C98EA /* Task Management App */ = {
 			isa = PBXGroup;
 			children = (
+				6F4B67EA28577C57006C98EA /* ViewModel */,
+				6F4B67E728577BF4006C98EA /* Model */,
+				6F4B67E628577BEF006C98EA /* View */,
 				6F4B67B7285779B0006C98EA /* Task_Management_AppApp.swift */,
 				6F4B67B9285779B0006C98EA /* ContentView.swift */,
 				6F4B67BB285779B1006C98EA /* Assets.xcassets */,
@@ -131,6 +140,30 @@
 				6F4B67D9285779B1006C98EA /* Task_Management_AppUITestsLaunchTests.swift */,
 			);
 			path = "Task Management AppUITests";
+			sourceTree = "<group>";
+		};
+		6F4B67E628577BEF006C98EA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6F4B67ED28577D99006C98EA /* Home.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6F4B67E728577BF4006C98EA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6F4B67E828577C04006C98EA /* Task.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6F4B67EA28577C57006C98EA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6F4B67EB28577C6A006C98EA /* TaskViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,9 +297,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F4B67C1285779B1006C98EA /* Persistence.swift in Sources */,
+				6F4B67EC28577C6A006C98EA /* TaskViewModel.swift in Sources */,
 				6F4B67BA285779B0006C98EA /* ContentView.swift in Sources */,
+				6F4B67E928577C04006C98EA /* Task.swift in Sources */,
 				6F4B67C4285779B1006C98EA /* Task_Management_App.xcdatamodeld in Sources */,
 				6F4B67B8285779B0006C98EA /* Task_Management_AppApp.swift in Sources */,
+				6F4B67EE28577D99006C98EA /* Home.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
