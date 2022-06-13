@@ -75,17 +75,19 @@ struct Home: View {
                     
                 } header: {
                     HeaderView()
+                        
                 }
                 
                 
             }
         }
+        .ignoresSafeArea(.container, edges: .top)
 
     }
     
     //MARK: Tasks View
     func TasksView()->some View{
-        LazyVStack(spacing:18){
+        LazyVStack(spacing:30){
             if let tasks = taskModel.filteredTasks{
                 if tasks.isEmpty{
                     Text("Uživaj u ostatku dana!☀️")
@@ -119,16 +121,18 @@ struct Home: View {
     
     //MARK: Task Card View
     func TaskCardView(task: Task)->some View{
-        HStack(alignment: .top, spacing:30){
+        HStack(alignment: .top, spacing:15){
             VStack(spacing:10){
                 Circle()
-                    .fill(Color("OrangeTick"))
+                    .fill(taskModel.isCurrentHour(date: task.taskDate) ? Color("OrangeTick") : .clear)
                     .frame(width: 15, height: 15)
                     .background(
                     Circle()
                         .stroke(Color("OrangeTick"),lineWidth: 1)
                         .padding(-3)
                     )
+                    .scaleEffect(taskModel.isCurrentHour(date: task.taskDate) ? 1 : 0.8)
+                
                 Rectangle()
                     .fill(.gray)
                     .frame(width:3)
@@ -149,15 +153,55 @@ struct Home: View {
                     .hLeading()
                     
                     Text(task.taskDate.formatted(date:.omitted, time:.shortened))
+                    
+                                        
                 }
                 
+                if taskModel.isCurrentHour(date: task.taskDate){
+                    //MARK: Team Members
+                    HStack(spacing:0){
+                        HStack(spacing:-10){
+                            ForEach(["User1","User2","User3"], id:\.self){ user in
+                                
+                                Image(user)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width:45, height: 45)
+                                    .clipShape(Circle())
+                                    .background(
+                                    
+                                        Circle()
+                                            .stroke(.white, lineWidth: 2)
+                                    
+                                    )
+                            }
+                        }
+                        .hLeading()
+                        
+                        //MARK: Check Button
+                        Button{
+                            
+                        } label:{
+                            Image(systemName: "checkmark")
+                                .foregroundStyle(.green)
+                                .padding(10)
+                                .background(.white, in:RoundedRectangle(cornerRadius: 10))
+                        }
+                        
+                    }
+                    .padding(.top)
+                }
+
+                
             }
-            .foregroundColor(.white)
-            .padding()
+            .foregroundColor(taskModel.isCurrentHour(date: task.taskDate) ? .white : .black)
+            .padding(taskModel.isCurrentHour(date: task.taskDate) ? 20 : 5)
             .hLeading()
+            .padding(.bottom, taskModel.isCurrentHour(date: task.taskDate) ? 0 : 1)
             .background(
                 Color("OrangeTick")
                     .cornerRadius(25)
+                    .opacity(taskModel.isCurrentHour(date: task.taskDate) ? 1 : 0)
             
             )
         }
@@ -194,6 +238,7 @@ struct Home: View {
             
         }
         .padding()
+        .padding(.top, getSafeArea().top)
         .background(Color.white)
     }
  
@@ -224,5 +269,19 @@ extension View{
     func hCenter()->some View{
         self
             .frame(maxWidth: .zero, alignment: .center)
+    }
+    
+    
+    //MARK: Safe Area
+    func getSafeArea()->UIEdgeInsets{
+        guard let screen = UIApplication.shared.connectedScenes.first as? UIWindowScene else{
+            return .zero
+        }
+        
+        guard let safeArea = screen.windows.first?.safeAreaInsets else{
+            return .zero
+        }
+        
+        return safeArea
     }
 }

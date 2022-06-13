@@ -12,7 +12,7 @@ class TaskViewModel: ObservableObject{
     
     @Published var storedTasks: [Task] = [
     
-        Task(taskTitle: "Zavrsi projekat", taskDescription: "Sredi dizajn i funkcionalnosti na samom projektu", taskDate: .init(timeIntervalSince1970: 1655144826)),
+        Task(taskTitle: "Zavrsi projekat", taskDescription: "Sredi dizajn i funkcionalnosti na samom projektu", taskDate: .init(timeIntervalSince1970: 1655155826)),
         Task(taskTitle: "Nauci osnove kvaliteta za ispit", taskDescription: "Vidi gradivo koje je potrebno da spremis", taskDate: .init(timeIntervalSince1970: 1655144826)),
         Task(taskTitle: "Pregledaj dizajn aplikacije", taskDescription: "Dodatno prepravi ako se nesto ne uklapa", taskDate: .init(timeIntervalSince1970: 1655200911)),
         Task(taskTitle: "Prijavi temu diplomskog rada", taskDescription: "U studentskoj sluzbi prijavi i sacekaj proceduru", taskDate: .init(timeIntervalSince1970: 1655200911)),
@@ -88,5 +88,16 @@ class TaskViewModel: ObservableObject{
     func isToday(date: Date)->Bool{
         let calender = Calendar.current
         return calender.isDate(currentDay, inSameDayAs: date)
+    }
+    
+    //MARK: Checking if the currentHour is task Hour
+    func isCurrentHour(date: Date)->Bool{
+        
+        let calendar = Calendar.current
+        
+        let hour = calendar.component(.hour, from: date)
+        let currentHour = calendar.component(.hour, from: Date())
+        
+        return hour == currentHour
     }
 }
