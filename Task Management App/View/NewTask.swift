@@ -15,6 +15,9 @@ struct NewTask: View {
     @State var taskDescription: String = ""
     @State var taskDate: Date = Date()
     
+    //MARK: Core Data Context
+    @Environment(\.managedObjectContext) var context
+    
 
     var body: some View {
 
@@ -49,7 +52,17 @@ struct NewTask: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button("Sačuvaj"){
+                        let task = Task(context: context)//komunikacija sa objektom u CoreData
+                        task.taskTitle = taskTitle
+                        task.taskDescription = taskDescription
+                        task.taskDate = taskDate
                         
+                        //Cuvanje podataka
+                        
+                        try? context.save()
+                        
+                        //Gasenje prozora
+                        dismiss()
                     }
                     .disabled(taskTitle == "" || taskDescription == "")
                 }
