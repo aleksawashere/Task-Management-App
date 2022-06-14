@@ -14,6 +14,9 @@ struct Home: View {
     //MARK: Core Data Context
     @Environment(\.managedObjectContext) var context
     
+    //MARK: Edit Button Context
+    @Environment(\.editMode) var editButton
+
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false){
@@ -130,21 +133,39 @@ struct Home: View {
     func TaskCardView(task: Task)->some View{
         
         //MARK: Since CoreData Values will give optional data
-        HStack(alignment: .top, spacing:15){
-            VStack(spacing:10){
-                Circle()
-                    .fill(taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? (task.isCompleted ? Color("GreenTick") : Color("OrangeTick")) : .clear)
-                    .frame(width: 15, height: 15)
-                    .background(
+        HStack(alignment: editButton?.wrappedValue == .active ? .center: .top, spacing:15){
+            
+            //Ako je edit mode ukljucen, onda prikazujemo dugme za brisanje
+            
+            if editButton?.wrappedValue == .active{
+                Button {
+                    //MARK: Deleting task
+                    context.delete(task)
+                    
+                    //Cuvanje
+                    try? context.save()
+                }label: {
+                    Image(systemName: "minus.circle.fill")
+                        .font(.title2)
+                        .foregroundColor(.red)
+                }
+            }
+            else{
+                VStack(spacing:10){
                     Circle()
-                        .stroke((task.isCompleted ? Color("GreenTick") : Color("OrangeTick")),lineWidth: 1)
-                        .padding(-3)
-                    )
-                    .scaleEffect(taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? 1 : 0.8)
-                
-                Rectangle()
-                    .fill(.gray)
-                    .frame(width:3)
+                        .fill(taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? (task.isCompleted ? Color("GreenTick") : Color("OrangeTick")) : .clear)
+                        .frame(width: 15, height: 15)
+                        .background(
+                        Circle()
+                            .stroke((task.isCompleted ? Color("GreenTick") : Color("OrangeTick")),lineWidth: 1)
+                            .padding(-3)
+                        )
+                        .scaleEffect(taskModel.isCurrentHour(date: task.taskDate ?? Date()) ? 1 : 0.8)
+                    
+                    Rectangle()
+                        .fill(.gray)
+                        .frame(width:3)
+                }
             }
             
             VStack{
@@ -174,7 +195,7 @@ struct Home: View {
                         //MARK: Check Button
                         if !task.isCompleted{
                             Button{
-                                //Azuriranje statusa izvrsenosti zadatja
+                                //Azuriranje statusa izvrsenosti zadatka
                                 task.isCompleted = true
                                 
                                 //Cuvanje
@@ -241,7 +262,8 @@ struct Home: View {
                     .clipShape(Circle())
             }
             
-            
+            //MARK: Edit button
+            EditButton()
             
         }
         .padding()
