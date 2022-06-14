@@ -27,6 +27,9 @@ class TaskViewModel: ObservableObject{
     //MARK: New Task View
     @Published var addNewTask: Bool = false
     
+    //MARK: Edit Data
+    @Published var editTask: Task?
+    
     //MARK: Initializing
     init(){
         fetchCurrentWeek()

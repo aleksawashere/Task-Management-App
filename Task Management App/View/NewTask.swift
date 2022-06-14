@@ -18,6 +18,8 @@ struct NewTask: View {
     //MARK: Core Data Context
     @Environment(\.managedObjectContext) var context
     
+    @EnvironmentObject var taskModel: TaskViewModel
+    
 
     var body: some View {
 
@@ -35,12 +37,15 @@ struct NewTask: View {
                     Text("Task Description")
                 }
                 
-                Section{
-                    DatePicker("", selection: $taskDate)
-                        .datePickerStyle(.graphical)
-                        .labelsHidden()
-                } header: {
-                    Text("Task Date")
+                //Disabling Date for Edit Mode
+                if taskModel.editTask == nil {
+                    Section{
+                        DatePicker("", selection: $taskDate)
+                            .datePickerStyle(.graphical)
+                            .labelsHidden()
+                    } header: {
+                        Text("Task Date")
+                    }
                 }
             }
             .listStyle(.insetGrouped)
@@ -52,10 +57,16 @@ struct NewTask: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button("Sačuvaj"){
-                        let task = Task(context: context)//komunikacija sa objektom u CoreData
-                        task.taskTitle = taskTitle
-                        task.taskDescription = taskDescription
-                        task.taskDate = taskDate
+                        if let task = taskModel.editTask{
+                            task.taskTitle = taskTitle
+                            task.taskDescription = taskDescription
+                        }
+                        else{
+                            let task = Task(context: context)//komunikacija sa objektom u CoreData
+                            task.taskTitle = taskTitle
+                            task.taskDescription = taskDescription
+                            task.taskDate = taskDate
+                        }
                         
                         //Cuvanje podataka
                         
@@ -71,6 +82,14 @@ struct NewTask: View {
                     Button("Odustani"){
                         dismiss()
                     }
+                }
+            }
+            
+            //Loading Task data if we come from Edit
+            .onAppear(){
+                if let task = taskModel.editTask{
+                    taskTitle = task.taskTitle ?? ""
+                    taskDescription = task.taskDescription ?? ""
                 }
             }
         }

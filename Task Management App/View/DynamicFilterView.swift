@@ -29,8 +29,8 @@ struct DynamicFilterView<Content: View,T>: View where T: NSManagedObject {
         // Ovo ce povlaciti zadatke izmedju danas i sutra, a to je zapravo 24h!
         let predicate = NSPredicate(format: "\(filterKey) >= %@ AND \(filterKey) =< %@", argumentArray: [today, tommorow])
         
-        //Initializing Request with NSPredicate
-        _request = FetchRequest(entity: T.entity(), sortDescriptors: [], predicate: predicate)
+        //Initializing Request with NSPredicate and adding sort
+        _request = FetchRequest(entity: T.entity(), sortDescriptors: [.init(keyPath: \Task.taskDate, ascending: false)], predicate: predicate)
         self.content = content
     }
     

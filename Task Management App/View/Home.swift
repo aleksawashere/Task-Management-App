@@ -109,7 +109,13 @@ struct Home: View {
             ,alignment: .bottomTrailing
         )
         .sheet(isPresented: $taskModel.addNewTask){
+            
+            //Clearing edit data
+            taskModel.editTask = nil
+            
+        } content:{
             NewTask()
+                .environmentObject(taskModel)
         }
     }
     
@@ -138,17 +144,34 @@ struct Home: View {
             //Ako je edit mode ukljucen, onda prikazujemo dugme za brisanje
             
             if editButton?.wrappedValue == .active{
-                Button {
-                    //MARK: Deleting task
-                    context.delete(task)
+                
+                // Edit Button for Current and Future tasks
+                VStack(spacing:10){
                     
-                    //Cuvanje
-                    try? context.save()
-                }label: {
-                    Image(systemName: "minus.circle.fill")
-                        .font(.title2)
-                        .foregroundColor(.red)
+                    if (task.taskDate ?? Date()) <= Date(){
+                        Button {
+                            taskModel.editTask = task
+                            taskModel.addNewTask.toggle()
+                        }label: {
+                            Image(systemName: "pencil.circle.fill")
+                                .font(.title2)
+                                .foregroundColor(.primary)
+                        }
+                    }
+                    
+                    Button {
+                        //MARK: Deleting task
+                        context.delete(task)
+                        
+                        //Cuvanje
+                        try? context.save()
+                    }label: {
+                        Image(systemName: "minus.circle.fill")
+                            .font(.title)
+                            .foregroundColor(.red)
+                    }
                 }
+                
             }
             else{
                 VStack(spacing:10){
