@@ -37,10 +37,10 @@ struct DynamicFilterView<Content: View,T>: View where T: NSManagedObject {
     var body: some View {
         Group{
             if request.isEmpty{
-                Text("Uživaj u ostatku dana!☀️")
+                Text("Uživaj u ovom danu!☀️")
                     .font(.system(size:16))
                     .fontWeight(.light)
-                Text("Nema više zadataka za tebe danas!🎉")
+                Text("Nema zadataka za tebe!🎉")
                     .font(.system(size:16))
                     .fontWeight(.light)
             }

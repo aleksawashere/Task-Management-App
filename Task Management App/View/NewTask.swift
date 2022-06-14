@@ -26,15 +26,15 @@ struct NewTask: View {
         NavigationView{
             List{
                 Section{
-                    TextField("Go to work", text: $taskTitle)
+                    TextField("Idi na posao😓", text: $taskTitle)
                 } header: {
-                    Text("Task Title")
+                    Text("Naslov zadatka")
                 }
                 
                 Section{
-                    TextField("Nothing else to say.", text: $taskDescription)
+                    TextField("Ponesi laptop i kafu!☕️", text: $taskDescription)
                 } header: {
-                    Text("Task Description")
+                    Text("Opis zadatka")
                 }
                 
                 //Disabling Date for Edit Mode
@@ -44,12 +44,12 @@ struct NewTask: View {
                             .datePickerStyle(.graphical)
                             .labelsHidden()
                     } header: {
-                        Text("Task Date")
+                        Text("Datum zadatka")
                     }
                 }
             }
             .listStyle(.insetGrouped)
-            .navigationTitle("Add New Task")
+            .navigationTitle("Dodaj novi zadatak")
             .navigationBarTitleDisplayMode(.inline)
             //MARK: Disabling Dismiss on Swipe
             .interactiveDismissDisabled()

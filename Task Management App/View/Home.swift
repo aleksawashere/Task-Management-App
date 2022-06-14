@@ -155,7 +155,7 @@ struct Home: View {
                         }label: {
                             Image(systemName: "pencil.circle.fill")
                                 .font(.title)
-                                .foregroundColor(.primary)
+                                .foregroundColor(.yellow)
                         }
                     }
                     
@@ -232,7 +232,7 @@ struct Home: View {
                             }
                         }
                         
-                        Text(task.isCompleted ? "Completed" : "Mark Task as Completed")
+                        Text(task.isCompleted ? "Završeno!" : "Čekiraj zadatak ako je završen")
                             .font(.system(size: task.isCompleted ? 14 : 16, weight: .light))
                             .foregroundColor(.white)
                             .hLeading()
@@ -270,7 +270,7 @@ struct Home: View {
                 Text(Date().formatted(date: .abbreviated, time:.omitted))
                     .foregroundColor(.gray)
 
-                Text("Today")
+                Text("Danas")
                     .font(.largeTitle.bold())
             }
             .hLeading()
