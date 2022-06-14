@@ -21,7 +21,7 @@ struct DynamicFilterView<Content: View,T>: View where T: NSManagedObject {
         let calendar = Calendar.current
         
         let today = calendar.startOfDay(for: dateToFilter)
-        let tommorow = calendar.date(byAdding: .day, value: 1, to: dateToFilter)!
+        let tommorow = calendar.date(byAdding: .day, value: 1, to: today)!
         
         //Kljuc za filtriranje po datumu u aplikaciji
         let filterKey = "taskDate" //element u objektu Task koji nam se nalazi u CoreData

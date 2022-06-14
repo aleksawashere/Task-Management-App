@@ -148,13 +148,13 @@ struct Home: View {
                 // Edit Button for Current and Future tasks
                 VStack(spacing:10){
                     
-                    if (task.taskDate ?? Date()) <= Date(){
+                    if task.taskDate?.compare(Date()) == .orderedDescending || Calendar.current.isDateInToday(task.taskDate ?? Date()){
                         Button {
                             taskModel.editTask = task
                             taskModel.addNewTask.toggle()
                         }label: {
                             Image(systemName: "pencil.circle.fill")
-                                .font(.title2)
+                                .font(.title)
                                 .foregroundColor(.primary)
                         }
                     }
